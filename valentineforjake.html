@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine 💘</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      animation: bgMove 6s infinite alternate;
+    }
+
+    @keyframes bgMove {
+      from { filter: hue-rotate(0deg); }
+      to { filter: hue-rotate(15deg); }
+    }
+
+    .container, .love-page {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      animation: pop 0.8s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      color: #ff4d6d;
+      margin-bottom: 25px;
+      font-size: 24px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #yes:hover {
+      transform: scale(1.1);
+    }
+
+    #no {
+      background-color: #adb5bd;
+      color: white;
+      position: absolute;
+    }
+
+    .love-page {
+      display: none;
+    }
+
+    .hearts {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 4s linear infinite;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-110vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<audio id="music" autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="main">
+  <h1>💖 WILL YOU BE MY VALENTINE? 💖</h1>
+  <button id="yes" onclick="yesClicked()">YES</button>
+  <button id="no" onmouseover="moveAndShrink()">NO</button>
+</div>
+
+<div class="love-page" id="love">
+  <h1>💌 YAY!!! 💌</h1>
+  <p style="font-size:18px; color:#ff4d6d;">
+    You just made my heart super happy 💕<br>
+    Happy Valentine’s Day 😘
+  </p>
+</div>
+
+<script>
+  let noScale = 1;
+
+  function moveAndShrink() {
+    const noBtn = document.getElementById("no");
+    noScale -= 0.1;
+
+    if (noScale <= 0.3) {
+      noBtn.style.display = "none";
+      return;
+    }
+
+    noBtn.style.transform = `scale(${noScale})`;
+
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+
+  function yesClicked() {
+    document.getElementById("main").style.display = "none";
+    document.getElementById("love").style.display = "block";
+    createHearts();
+  }
+
+  function createHearts() {
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "hearts";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }, 300);
+  }
+</script>
+
+</body>
+</html>
